@@ -87,7 +87,12 @@ class Blackjack:
         return self.deck.draw()
 
     def play(self) -> None:
-        """"""
+        """Plays a simple game of Blackjack
+
+        Plays a game of Blackjack using the console. A single player plays against the dealer. The player has the option of
+        hitting or standing. The dealer must hit when on or below 17. The player wins by having a hand value greater than
+        that of the dealer.
+        """
         self.deck.shuffle()
         play_again = True
         play_forever = False
