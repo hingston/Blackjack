@@ -73,6 +73,19 @@ class Blackjack:
         print("Dealer: %02d - Hand: %s." % (self.max_hand_value(self.dealer_hand), self.hand_to_str(self.dealer_hand)))
         print("Player: %02d - Hand: %s." % (self.max_hand_value(self.player_hand), self.hand_to_str(self.player_hand)))
 
+    def draw(self) -> Card:
+        """Draws a card after checking the deck isn't empty
+
+        Check if the deck is empty, if it is a new deck is added and then shuffled, then draws a card.
+
+        Returns:
+            A card
+        """
+        if self.deck.empty:
+            self.deck.new()
+            self.deck.shuffle()
+        return self.deck.draw()
+
     def play(self) -> None:
         """"""
         self.deck.shuffle()
@@ -82,43 +95,53 @@ class Blackjack:
             print("\nWelcome to Blackjack!\n")
             self.dealer_hand = []
             self.player_hand = []
-            if self.deck.empty:
-                self.deck.new()
-                self.deck.shuffle()
-            self.dealer_hand.append(self.deck.draw())
-            self.player_hand.append(self.deck.draw())
-            dealer_hidden_card = self.deck.draw()
-            self.player_hand.append(self.deck.draw())
+            self.dealer_hand.append(self.draw())
+            self.player_hand.append(self.draw())
+            dealer_hidden_card = self.draw()
+            self.player_hand.append(self.draw())
             self.print_current_hands()
             player_score = self.max_hand_value(self.player_hand)
-            player_bust = False
-            while not player_bust:
-                reply = str(input("Would you like to (h)it or (s)tand?: ")).lower().strip()[:1]
-                if reply == "h":
-                    self.player_hand.append(self.deck.draw())
-                    self.print_current_hands()
-                    player_score = self.max_hand_value(self.player_hand)
-                    if player_score > 21:
-                        print("BUST - Dealer wins!")
-                        player_bust = True
-                if reply == "s":
-                    break
-            if not player_bust:
+            if player_score == 21:
                 self.dealer_hand.append(dealer_hidden_card)
-                while self.max_hand_value(self.dealer_hand) < max(17, player_score):
-                    self.dealer_hand.append(self.deck.draw())
                 self.print_current_hands()
-                if player_score <= self.max_hand_value(self.dealer_hand) <= 21:
-                    print("Dealer wins!")
+                if self.max_hand_value(self.dealer_hand) == 21:
+                    print("Dealer wins - Natural Blackjack!")
                 else:
-                    print("Player wins!")
-            if not play_forever:
-                reply = ""
-                while reply not in ["y", "n", "f"]:
-                    reply = str(input("Would you like to play again? (y)es, (n)o or play (f)orever: ")).lower()[:1]
-                    if reply == "y":
-                        pass
-                    if reply == "n":
-                        play_again = False
-                    if reply == "f":
-                        play_forever = True
+                    print("Player wins - Natural Blackjack!")
+            else:
+                player_bust = False
+                while not player_bust:
+                    reply = str(input("Would you like to (h)it or (s)tand?: ")).lower().strip()[:1]
+                    if reply == "h":
+                        self.player_hand.append(self.draw())
+                        self.print_current_hands()
+                        player_score = self.max_hand_value(self.player_hand)
+                        if player_score > 21:
+                            print("BUST - Dealer wins!")
+                            player_bust = True
+                    if reply == "s":
+                        break
+                if not player_bust:
+                    self.dealer_hand.append(dealer_hidden_card)
+                    self.dealer_hand = [Card("S","A"),Card("S","J")]
+                    if self.max_hand_value(self.dealer_hand) == 21:
+                        self.print_current_hands()
+                        print("Dealer wins - Natural Blackjack!")
+                    else:
+                        while self.max_hand_value(self.dealer_hand) < max(17, player_score):
+                            self.dealer_hand.append(self.draw())
+                        self.print_current_hands()
+                        if player_score <= self.max_hand_value(self.dealer_hand) <= 21:
+                            print("Dealer wins!")
+                        else:
+                            print("Player wins!")
+                if not play_forever:
+                    reply = ""
+                    while reply not in ["y", "n", "f"]:
+                        reply = str(input("Would you like to play again? (y)es, (n)o or play (f)orever: ")).lower()[:1]
+                        if reply == "y":
+                            pass
+                        if reply == "n":
+                            play_again = False
+                        if reply == "f":
+                            play_forever = True
