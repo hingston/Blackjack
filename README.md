@@ -29,8 +29,8 @@ Accept an additional card to get your hand value closer to 21, you may do this a
 ---
 
 #Improvements
-* 
-* 
-* 
-* 
-* 
+If I were to continue development I would improve the following:
+* Allow the Deck class to shuffle multiple decks into each other to make card counting more difficult
+* Implement all the additional Blackjack rules such as doubling, splitting, etc
+* Implement betting - the player can continue until they are bust or cash out
+* Implement other games to use my Deck class
