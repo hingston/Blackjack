@@ -1,5 +1,5 @@
-from Decks import FrenchDeck
 from CardGames import Blackjack
+from Decks import FrenchDeck
 
 
 def main() -> None:
