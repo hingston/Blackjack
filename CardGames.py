@@ -128,7 +128,6 @@ class Blackjack:
                         break
                 if not player_bust:
                     self.dealer_hand.append(dealer_hidden_card)
-                    self.dealer_hand = [Card("S","A"),Card("S","J")]
                     if self.max_hand_value(self.dealer_hand) == 21:
                         self.print_current_hands()
                         print("Dealer wins - Natural Blackjack!")
