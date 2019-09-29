@@ -26,9 +26,9 @@ class Blackjack:
         """Calculates maximum hand value
 
         Calculates the maximum value of a Blackjack hand. This is done by first looping through a hand adding the value
-        the card if a number, 10 for kings/queens/jacks and 11 for aces while counting the number of aces. Then looping
-        a final time for the number of aces in the hand and subtracting 10 while the score is higher than 21. This
-        ensures the maximum hand value is found when there are more than 1 ace in the hand without having to sort the
+        of the card if a number, 10 for kings/queens/jacks and 11 for aces while counting the number of aces. Then
+        looping a final time for the number of aces in the hand and subtracting 10 while the score is higher than 21.
+        This ensures the maximum hand value is found when there are more than 1 ace in the hand without having to sort
         before the initial loop.
 
         Args:
